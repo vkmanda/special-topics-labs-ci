@@ -74,3 +74,4 @@ workflow-multibranch
 workflow-scm-step
 cobertura
 maven-plugin
+pipeline-maven

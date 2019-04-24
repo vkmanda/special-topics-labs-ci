@@ -27,9 +27,10 @@ The source code for this project is quite simple.  It's pretty much the unit tes
 
 ## Completing the Assignment
 
-1. For this lab you will modify the existing Jenkins configuration to have the pipeline job:
+1. For this lab you will modify the existing Jenkins configuration to have the pipeline job include 3 stages:
     1. Checkout _your_ repository
     1. Build the source code using a maven stage
+        1. To use maven in a pipeline you need to have access to the `mvn` command, which is provided through a Tool Configuration in Jenkins.  See [the snippet](#maven-pipeline-build-snippet) below for a sample snippet.
     1. Report the unit test results
 1. To do so, you will need to:
     1. Change the [build_pipeline.groovy](docker/dsl/build_pipeline.groovy) to use your repository
@@ -52,3 +53,13 @@ If you need to amend your work after you issue your initial pull request:
 1. Commit your updates
 1. Push your changes to gitHub
 1. Verify the new commits were automatically added to your open pull request
+
+## Maven Pipeline Build Snippet
+Here is a snippet that will be useful to include in your pipeline.  The "build" stage should include something similar to this: 
+```
+        withMaven (maven: 'maven3') {
+          sh "mvn package"
+        }
+```
+The `withMaven` clause does the necessary setup to make the `mvn` executable that corresponds to the `maven3` tool installation
+available to the `sh` command.  Without it the `sh` would complain that it couldn't find `mvn`.
