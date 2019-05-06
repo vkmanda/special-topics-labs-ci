@@ -9,6 +9,8 @@ node {
     // you should build this repo with a maven build step here
     //echo "hello Krishna"
 
+            // do maven build  - note: in jenkins tools config, the maven3 was already configured
+
             withMaven (maven: 'maven3') {
               sh "mvn package"
             }
